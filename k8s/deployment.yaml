@@ -5,7 +5,7 @@ metadata:
   labels:
     app: cc-payment-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: cc-payment-service
@@ -36,6 +36,12 @@ spec:
             timeoutSeconds: 2
             periodSeconds: 8
             failureThreshold: 1
+          env:
+            - name: PAYMENT_CC_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app
+                  key: PAYMENT_CC_SECRET_KEY
 ---
 apiVersion: v1
 kind: Service
